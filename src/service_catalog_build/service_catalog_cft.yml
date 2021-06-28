@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+# WhichInstance and Version are brought from Parameter Store
+# CatalogPortfolio and SourceBucketName is brought as an environment variable from the codebuild project
+Parameters:
+  WhichInstance: 
+    Type: String
+  CatalogPortfolio: 
+    Type: String
+  Version:
+    Type: String
+  SourceBucketName:
+    Type: String
+
+Resources:
+  #Creates new/Updates Catalog product
+  CatalogProduct:
+      Type: AWS::ServiceCatalog::CloudFormationProduct
+      Properties:
+        #Sets Service Catalog name to the name of Product
+        Name: !Ref WhichInstance 
+        Owner: Vertical Relevance
+        ProvisioningArtifactParameters:
+          - DisableTemplateValidation: true
+            Name: !Ref Version
+            #Finds template of product from source in s3
+            Info:
+              LoadTemplateFromURL: !Sub "https://${SourceBucketName}.s3.amazonaws.com/validation_build/service_catalog_products/${WhichInstance}/${WhichInstance}_template.yml"
+
+  # Adds new/updated product to Portfolio
+  ProductToPortfolio:
+    Type: AWS::ServiceCatalog::PortfolioProductAssociation
+    Properties:
+      PortfolioId: !Ref CatalogPortfolio 
+      ProductId: !Ref CatalogProduct
+
+
