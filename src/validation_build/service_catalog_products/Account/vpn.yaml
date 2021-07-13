@@ -1,3 +1,8 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  Account:
+    Description: The account in which the VPC is built
+    Type: String
 Resources:
   PrimaryVPC:
     Type: AWS::EC2::VPC
@@ -19,7 +24,7 @@ Resources:
           - Effect: Allow
             Principal:
               AWS:
-                - "arn:aws:iam::123456789012:user/*"
+                - !Sub arn:aws:iam::${Account}:user/*
             Action:
               - 'sts:AssumeRole'
       RoleName: "DefaultUserRole"
