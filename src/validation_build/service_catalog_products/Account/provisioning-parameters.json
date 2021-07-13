@@ -1,0 +1,26 @@
+[
+    {
+        "Value": "jdoe@verticalrelevance.com",
+        "Key": "SSOUserEmail"
+    },
+    {
+        "Value": "John",
+        "Key": "SSOUserFirstName"
+    },
+    {
+        "Value": "Doe",
+        "Key": "SSOUserLastName"
+    },
+    {
+        "Value": "Development",
+        "Key": "ManagedOrganizationalUnit"
+    },
+    {
+        "Value": "TestAccount",
+        "Key": "AccountName"
+    },
+    {
+        "Value": "jdoe@verticalrelevance.com",
+        "Key": "AccountEmail"
+    }
+]
