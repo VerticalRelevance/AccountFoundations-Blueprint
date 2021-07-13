@@ -1,0 +1,26 @@
+Resources:
+  PrimaryVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: "10.0.0.0/20"
+  SubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: PrimaryVPC
+      CidrBlock: "10.0.0.0/20"
+      AvailabliltyZone: "us-west-2a"
+  UserRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                - "arn:aws:iam::123456789012:user/*"
+            Action:
+              - 'sts:AssumeRole'
+      RoleName: "DefaultUserRole"
+  
