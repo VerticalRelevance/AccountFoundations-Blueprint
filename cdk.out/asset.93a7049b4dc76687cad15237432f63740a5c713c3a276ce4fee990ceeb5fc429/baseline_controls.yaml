@@ -1,0 +1,44 @@
+Resources:
+  ConfigRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - config.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: admin
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: '*'
+      RoleName: ConfigRole
+  ConfigRecorder:
+    Type: 'AWS::Config::ConfigurationRecorder'
+    Properties:
+      Name: default
+      RoleARN:
+        'Fn::GetAtt':
+          - ConfigRole
+          - Arn
+  ConformancePack:
+    Type: 'AWS::Config::ConformancePack'
+    Properties:
+      ConformancePackName: BaselineCisBestPractices
+      TemplateS3Uri: 's3://vr-account-foundation-bucket/supplementary-files/cis-best-pracices.yaml'
+  BaselineAnalyzer:
+    Type: 'AWS::AccessAnalyzer::Analyzer'
+    Properties:
+      AnalyzerName: BaselineAnalyzer
+      Type: ACCOUNT
+      Tags:
+        -
+          Key: BaselineAnalyzer
+          Value: True

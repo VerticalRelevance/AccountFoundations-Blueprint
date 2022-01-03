@@ -1,0 +1,1247 @@
+{
+  "Resources": {
+    "FullIAMPolicy9985998": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "iam:*",
+                "organizations:Describe*",
+                "organizations:List*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Full-Control Access to IAM resources, Read Organizations",
+        "ManagedPolicyName": "FullIAMPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/FullIAMPolicy/Resource"
+      }
+    },
+    "ReadIAMPolicy8C590EB0": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "iam:List*",
+                "iam:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Read Access to IAM resources",
+        "ManagedPolicyName": "ReadIAMPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/ReadIAMPolicy/Resource"
+      }
+    },
+    "ReadBillingPolicy6DA8D1C0": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "aws-portal:View*",
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Read Access to Billing resources",
+        "ManagedPolicyName": "ReadBillingPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/ReadBillingPolicy/Resource"
+      }
+    },
+    "FullExceptBilling3CBBB8C1": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "*",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "aws-portal:*",
+                "cur:*",
+                "ce:*",
+                "pricing:*",
+                "purchase-orders:*"
+              ],
+              "Effect": "Deny",
+              "Resource": "*",
+              "Sid": "DenyBilling"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Full Access to all except billing",
+        "ManagedPolicyName": "FullExceptBilling",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/FullExceptBilling/Resource"
+      }
+    },
+    "ReadAllExceptBillingPolicy13425D9E9": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "b:Get*",
+                "b:List*",
+                "b:Resolve*",
+                "b:Start*",
+                "analyzer:Get*",
+                "analyzer:List*",
+                "acm:Describe*",
+                "acm:Export*",
+                "acm:Get*",
+                "acm:List*",
+                "pca:Describe*",
+                "pca:Get*",
+                "pca:List*",
+                "activate:Get*",
+                "airflow:Get*",
+                "airflow:List*",
+                "amplify:Get*",
+                "amplify:List*",
+                "amplifybackend:Get*",
+                "apigateway:G*",
+                "integrations:Get*",
+                "integrations:List*",
+                "appconfig:Get*",
+                "appconfig:List*",
+                "appflow:Describe*",
+                "appflow:List*",
+                "autoscaling:Describe*",
+                "profiler:Get*",
+                "profiler:List*",
+                "applicationinsights:Describe*",
+                "applicationinsights:List*",
+                "appmesh:Describe*",
+                "appmesh:Stream*",
+                "preview:Describe*",
+                "preview:Stream*",
+                "apprunner:Describe*",
+                "apprunner:List*",
+                "appstream:Describe*",
+                "appstream:List*",
+                "appsync:Get*",
+                "appsync:List*",
+                "aps:Describe*",
+                "aps:Get*",
+                "aps:List*",
+                "aps:Query*",
+                "artifact:Download*",
+                "artifact:Get*",
+                "athena:Batch*",
+                "athena:Get*",
+                "athena:List*",
+                "auditmanager:Get*",
+                "auditmanager:Validate*",
+                "plans:Describe*",
+                "plans:Get*",
+                "marketplace:Describe*",
+                "portal:View*",
+                "awsconnector:Get*",
+                "awsconnector:Validate*",
+                "backup:Describe*",
+                "backup:Export*",
+                "backup:Get*",
+                "backup:List*",
+                "batch:Describe*",
+                "batch:List*",
+                "braket:Get*",
+                "braket:List*",
+                "braket:Search*",
+                "budgets:Describe*",
+                "budgets:View*",
+                "bugbust:Get*",
+                "bugbust:List*",
+                "cassandra:Select*",
+                "ce:Describe*",
+                "ce:Get*",
+                "chatbot:Describe*",
+                "chatbot:Get*",
+                "chime:Describe*",
+                "chime:Get*",
+                "chime:Search*",
+                "chime:Validate*",
+                "clouddirectory:Batch*",
+                "clouddirectory:Get*",
+                "clouddirectory:List*",
+                "clouddirectory:Lookup*",
+                "cloudformation:Describe*",
+                "cloudformation:Detect*",
+                "cloudformation:Estimate*",
+                "cloudformation:Get*",
+                "cloudformation:Validate*",
+                "cloudfront:Describe*",
+                "cloudfront:Get*",
+                "cloudfront:List*",
+                "cloudhsm:Describe*",
+                "cloudhsm:Get*",
+                "cloudhsm:List*",
+                "cloudsearch:Describe*",
+                "cloudsearch:List*",
+                "cloudshell:Get*",
+                "cloudtrail:Describe*",
+                "cloudtrail:Get*",
+                "cloudtrail:List*",
+                "cloudtrail:Lookup*",
+                "cloudwatch:Describe*",
+                "cloudwatch:Get*",
+                "codeartifact:Describe*",
+                "codeartifact:Get*",
+                "codeartifact:Read*",
+                "codebuild:Batch*",
+                "codebuild:Describe*",
+                "codebuild:Get*",
+                "codecommit:Batch*",
+                "codecommit:Cancel*",
+                "codecommit:Describe*",
+                "codecommit:Evaluate*",
+                "codecommit:Get*",
+                "codecommit:Git*",
+                "codedeploy:Batch*",
+                "codedeploy:Get*",
+                "codeguru:Get*",
+                "profiler:Describe*",
+                "reviewer:Create*",
+                "reviewer:Describe*",
+                "reviewer:Get*",
+                "reviewer:List*",
+                "codepipeline:Get*",
+                "codepipeline:List*",
+                "codestar:Describe*",
+                "codestar:Get*",
+                "connections:Get*",
+                "connections:Pass*",
+                "connections:Register*",
+                "connections:Start*",
+                "connections:Use*",
+                "notifications:Describe*",
+                "identity:Describe*",
+                "identity:Get*",
+                "identity:List*",
+                "identity:Lookup*",
+                "idp:Admin*",
+                "idp:Describe*",
+                "idp:Get*",
+                "sync:Describe*",
+                "sync:Get*",
+                "sync:List*",
+                "sync:Query*",
+                "comprehend:Batch*",
+                "comprehend:Classify*",
+                "comprehend:Contains*",
+                "comprehend:Describe*",
+                "comprehend:Detect*",
+                "comprehend:List*",
+                "comprehendmedical:Detect*",
+                "config:Batch*",
+                "config:Deliver*",
+                "config:Describe*",
+                "config:Get*",
+                "config:List*",
+                "config:Select*",
+                "connect:Describe*",
+                "connect:Get*",
+                "connect:List*",
+                "controltower:Describe*",
+                "controltower:Get*",
+                "cur:Describe*",
+                "databrew:Describe*",
+                "databrew:List*",
+                "dataexchange:Get*",
+                "dataexchange:List*",
+                "datapipeline:Describe*",
+                "datapipeline:Evaluate*",
+                "datapipeline:Get*",
+                "datapipeline:Query*",
+                "datapipeline:Validate*",
+                "datasync:Describe*",
+                "datasync:List*",
+                "dax:Batch*",
+                "dax:Condition*",
+                "dax:Describe*",
+                "dax:Get*",
+                "dax:List*",
+                "dax:Query*",
+                "dax:Scan*",
+                "dbqms:Get*",
+                "deepcomposer:Get*",
+                "deeplens:Batch*",
+                "deeplens:Get*",
+                "deepracer:Admin*",
+                "deepracer:Get*",
+                "deepracer:List*",
+                "detective:Get*",
+                "detective:List*",
+                "detective:Search*",
+                "devicefarm:Get*",
+                "guru:Describe*",
+                "guru:Get*",
+                "guru:Start*",
+                "directconnect:Describe*",
+                "discovery:Describe*",
+                "discovery:Get*",
+                "dlm:Get*",
+                "dlm:List*",
+                "dms:Describe*",
+                "dms:List*",
+                "dms:Test*",
+                "ds:Check*",
+                "ds:Describe*",
+                "ds:Get*",
+                "ds:List*",
+                "ds:Verify*",
+                "dynamodb:Batch*",
+                "dynamodb:Condition*",
+                "dynamodb:Describe*",
+                "dynamodb:Get*",
+                "dynamodb:List*",
+                "dynamodb:Parti*",
+                "dynamodb:Query*",
+                "dynamodb:Scan*",
+                "ebs:Get*",
+                "ebs:List*",
+                "messages:Get*",
+                "ecr:Batch*",
+                "ecr:Describe*",
+                "ecr:Get*",
+                "public:Batch*",
+                "public:Describe*",
+                "public:Get*",
+                "public:List*",
+                "ecs:Describe*",
+                "ecs:List*",
+                "eks:Access*",
+                "eks:Describe*",
+                "eks:List*",
+                "inference:List*",
+                "elasticache:List*",
+                "elasticbeanstalk:Check*",
+                "elasticbeanstalk:Describe*",
+                "elasticbeanstalk:List*",
+                "elasticbeanstalk:Request*",
+                "elasticbeanstalk:Retrieve*",
+                "elasticbeanstalk:Validate*",
+                "elasticfilesystem:Client*",
+                "elasticfilesystem:Describe*",
+                "elasticfilesystem:List*",
+                "elasticloadbalancing:Describe*",
+                "elasticmapreduce:Describe*",
+                "elasticmapreduce:Get*",
+                "elasticmapreduce:List*",
+                "elastictranscoder:Read*",
+                "activations:Get*",
+                "activations:List*",
+                "software:Get*",
+                "software:List*",
+                "cases:Get*",
+                "content:Query*",
+                "containers:Describe*",
+                "es:Describe*",
+                "es:E*",
+                "es:Get*",
+                "es:List*",
+                "events:Describe*",
+                "events:Test*",
+                "finspace:Get*",
+                "finspace:List*",
+                "firehose:Describe*",
+                "fis:Get*",
+                "fis:List*",
+                "fms:Get*",
+                "fms:List*",
+                "forecast:Describe*",
+                "forecast:Get*",
+                "forecast:List*",
+                "forecast:Query*",
+                "frauddetector:Describe*",
+                "frauddetector:Get*",
+                "freertos:Describe*",
+                "freertos:Get*",
+                "fsx:Describe*",
+                "fsx:List*",
+                "gamelift:Describe*",
+                "gamelift:Get*",
+                "gamelift:List*",
+                "gamelift:Request*",
+                "gamelift:Resolve*",
+                "gamelift:Search*",
+                "gamelift:Validate*",
+                "geo:Batch*",
+                "geo:Calculate*",
+                "geo:Describe*",
+                "geo:Get*",
+                "geo:List*",
+                "geo:Search*",
+                "glacier:Describe*",
+                "glacier:Get*",
+                "globalaccelerator:Describe*",
+                "globalaccelerator:List*",
+                "glue:Batch*",
+                "glue:Check*",
+                "glue:Get*",
+                "glue:Search*",
+                "grafana:Describe*",
+                "greengrass:Describe*",
+                "greengrass:Get*",
+                "groundstation:Describe*",
+                "groundstation:Get*",
+                "groundstation:List*",
+                "groundtruthlabeling:Describe*",
+                "groundtruthlabeling:List*",
+                "guardduty:Describe*",
+                "guardduty:Get*",
+                "guardduty:List*",
+                "health:Describe*",
+                "healthlake:Describe*",
+                "healthlake:Get*",
+                "healthlake:List*",
+                "healthlake:Read*",
+                "healthlake:Search*",
+                "honeycode:Describe*",
+                "honeycode:Get*",
+                "honeycode:Query*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "aws-portal:*",
+                "cur:*",
+                "ce:*",
+                "pricing:*",
+                "purchase-orders:*"
+              ],
+              "Effect": "Deny",
+              "Resource": "*",
+              "Sid": "DenyBilling"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Get Access to all except billing",
+        "ManagedPolicyName": "ReadAllExceptBillingPolicy1",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/ReadAllExceptBillingPolicy1/Resource"
+      }
+    },
+    "ReadAllExceptBillingPolicy2DA0351EB": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "iam:Generate*",
+                "iam:Get*",
+                "iam:Simulate*",
+                "identitystore:Describe*",
+                "imagebuilder:Get*",
+                "imagebuilder:List*",
+                "importexport:Get*",
+                "inspector:Describe*",
+                "inspector:Get*",
+                "inspector:List*",
+                "inspector:Preview*",
+                "iot:Describe*",
+                "iot:Get*",
+                "iot:List*",
+                "iot:Search*",
+                "iot:Test*",
+                "iot:Validate*",
+                "tester:Check*",
+                "tester:Download*",
+                "tester:Latest*",
+                "tester:Supported*",
+                "click:Claim*",
+                "click:Describe*",
+                "click:Finalize*",
+                "click:Get*",
+                "click:Initiate*",
+                "click:List*",
+                "click:Unclaim*",
+                "iotanalytics:Describe*",
+                "iotanalytics:Get*",
+                "iotanalytics:List*",
+                "iotanalytics:Run*",
+                "iotanalytics:Sample*",
+                "iotdeviceadvisor:Get*",
+                "iotdeviceadvisor:List*",
+                "iotevents:Describe*",
+                "iotevents:Get*",
+                "iotevents:List*",
+                "iotfleethub:Describe*",
+                "iotfleethub:List*",
+                "iotsitewise:Describe*",
+                "iotsitewise:Get*",
+                "iotsitewise:List*",
+                "iotthingsgraph:Describe*",
+                "iotthingsgraph:Get*",
+                "iotthingsgraph:Search*",
+                "iotwireless:Get*",
+                "iotwireless:List*",
+                "ivs:Batch*",
+                "ivs:Get*",
+                "ivs:List*",
+                "kafka:Describe*",
+                "kafka:Get*",
+                "kafka:List*",
+                "cluster:Read*",
+                "kafkaconnect:Describe*",
+                "kafkaconnect:List*",
+                "kendra:Batch*",
+                "kendra:Describe*",
+                "kendra:Get*",
+                "kendra:List*",
+                "kendra:Query*",
+                "kinesis:Describe*",
+                "kinesis:Get*",
+                "kinesis:List*",
+                "kinesis:Subscribe*",
+                "kinesisanalytics:Create*",
+                "kinesisanalytics:Describe*",
+                "kinesisanalytics:Discover*",
+                "kinesisanalytics:List*",
+                "kinesisvideo:Get*",
+                "kinesisvideo:List*",
+                "kms:Describe*",
+                "kms:Get*",
+                "lakeformation:Describe*",
+                "lakeformation:Get*",
+                "lambda:Get*",
+                "lambda:List*",
+                "launchwizard:Describe*",
+                "launchwizard:Get*",
+                "lex:Describe*",
+                "lex:Get*",
+                "lex:List*",
+                "manager:Get*",
+                "lightsail:Get*",
+                "lightsail:Is*",
+                "logs:Filter*",
+                "logs:Get*",
+                "logs:Start*",
+                "logs:Stop*",
+                "logs:Test*",
+                "lookoutequipment:Describe*",
+                "lookoutequipment:List*",
+                "lookoutmetrics:Describe*",
+                "lookoutmetrics:Get*",
+                "lookoutmetrics:List*",
+                "lookoutvision:Describe*",
+                "lookoutvision:List*",
+                "machinelearning:Get*",
+                "managedblockchain:Get*",
+                "managedblockchain:List*",
+                "mechanicalturk:Get*",
+                "mediaconnect:Describe*",
+                "mediaconnect:List*",
+                "mediaconvert:Get*",
+                "mediaconvert:List*",
+                "medialive:Describe*",
+                "mediapackage:Describe*",
+                "mediapackage:List*",
+                "vod:Describe*",
+                "vod:List*",
+                "mediastore:Get*",
+                "mediastore:List*",
+                "mediatailor:Describe*",
+                "mediatailor:Get*",
+                "mediatailor:List*",
+                "memorydb:Describe*",
+                "memorydb:List*",
+                "mgh:Describe*",
+                "mgh:Get*",
+                "mgn:Describe*",
+                "mgn:Get*",
+                "mgn:List*",
+                "mobileanalytics:Get*",
+                "mobilehub:Describe*",
+                "mobilehub:Export*",
+                "mobilehub:Generate*",
+                "mobilehub:Get*",
+                "mobilehub:Validate*",
+                "mobilehub:Verify*",
+                "mobiletargeting:Get*",
+                "mobiletargeting:List*",
+                "mobiletargeting:Phone*",
+                "monitron:Get*",
+                "monitron:List*",
+                "mq:Describe*",
+                "firewall:Describe*",
+                "networkmanager:List*",
+                "nimble:Get*",
+                "nimble:List*",
+                "opsworks:Get*",
+                "cm:Export*",
+                "cm:List*",
+                "organizations:Describe*",
+                "outposts:Get*",
+                "outposts:List*",
+                "panorama:Describe*",
+                "panorama:Get*",
+                "personalize:Describe*",
+                "personalize:Get*",
+                "pi:Describe*",
+                "pi:Get*",
+                "polly:Get*",
+                "polly:Synthesize*",
+                "pricing:Describe*",
+                "pricing:Get*",
+                "profile:Get*",
+                "profile:List*",
+                "profile:Search*",
+                "proton:Get*",
+                "proton:List*",
+                "orders:View*",
+                "qldb:Describe*",
+                "qldb:Get*",
+                "qldb:List*",
+                "qldb:Parti*",
+                "quicksight:Describe*",
+                "quicksight:Get*",
+                "quicksight:List*",
+                "quicksight:Pass*",
+                "quicksight:Search*",
+                "ram:Get*",
+                "ram:List*",
+                "rds:Download*",
+                "rds:List*",
+                "redshift:Describe*",
+                "redshift:Fetch*",
+                "redshift:Get*",
+                "data:Describe*",
+                "data:Get*",
+                "data:List*",
+                "rekognition:Compare*",
+                "rekognition:Describe*",
+                "rekognition:Detect*",
+                "rekognition:Get*",
+                "rekognition:List*",
+                "rekognition:Recognize*",
+                "rekognition:Search*",
+                "explorer:List*",
+                "groups:Get*",
+                "robomaker:Batch*",
+                "robomaker:Describe*",
+                "robomaker:Get*",
+                "cluster:Get*",
+                "readiness:Get*",
+                "readiness:List*",
+                "domains:Check*",
+                "domains:Get*",
+                "domains:View*",
+                "resolver:Get*",
+                "resolver:List*",
+                "sagemaker:Batch*",
+                "sagemaker:Describe*",
+                "sagemaker:Get*",
+                "sagemaker:Invoke*",
+                "sagemaker:Render*",
+                "sagemaker:Search*",
+                "savingsplans:Describe*",
+                "schemas:Describe*",
+                "schemas:Export*",
+                "schemas:Get*",
+                "sdb:Domain*",
+                "sdb:Get*",
+                "sdb:Select*",
+                "secretsmanager:Describe*",
+                "secretsmanager:Get*",
+                "secretsmanager:List*",
+                "securityhub:Describe*",
+                "securityhub:Get*",
+                "securityhub:List*",
+                "securityhub:Send*",
+                "serverlessrepo:Get*",
+                "serverlessrepo:Search*",
+                "servicecatalog:Describe*",
+                "servicecatalog:Get*",
+                "servicecatalog:List*",
+                "servicediscovery:Discover*",
+                "servicediscovery:Get*",
+                "servicequotas:Get*",
+                "servicequotas:List*",
+                "ses:Get*",
+                "ses:List*",
+                "shield:Describe*",
+                "shield:Get*",
+                "shield:List*",
+                "signer:Describe*",
+                "signer:Get*",
+                "signer:List*",
+                "sms:Get*",
+                "voice:Get*",
+                "voice:List*",
+                "management:Describe*",
+                "management:List*",
+                "snowball:Describe*",
+                "snowball:Get*",
+                "snowball:List*",
+                "sns:Check*",
+                "sns:Get*",
+                "sns:List*",
+                "sqlworkbench:Get*",
+                "sqlworkbench:List*",
+                "sqs:Get*",
+                "sqs:List*",
+                "sqs:Receive*",
+                "ssm:Describe*",
+                "ssm:Get*",
+                "ssm:List*",
+                "contacts:Describe*",
+                "contacts:Get*",
+                "incidents:Get*",
+                "incidents:List*",
+                "sso:Describe*",
+                "sso:Get*",
+                "sso:List*",
+                "sso:Search*",
+                "directory:Describe*",
+                "directory:Get*",
+                "directory:Is*",
+                "directory:List*",
+                "directory:Search*",
+                "states:Describe*",
+                "states:Get*",
+                "states:List*",
+                "storagegateway:Describe*",
+                "sts:Get*",
+                "sumerian:View*",
+                "support:Describe*",
+                "support:Search*",
+                "swf:Count*",
+                "swf:Describe*",
+                "swf:Get*",
+                "synthetics:Describe*",
+                "synthetics:Get*",
+                "synthetics:List*",
+                "tag:Describe*",
+                "tag:Get*",
+                "textract:Analyze*",
+                "textract:Detect*",
+                "textract:Get*",
+                "timestream:Describe*",
+                "timestream:Select*",
+                "tiros:Get*",
+                "transcribe:Describe*",
+                "transcribe:Get*",
+                "transfer:Describe*",
+                "transfer:List*",
+                "transfer:Test*",
+                "translate:Describe*",
+                "translate:Get*",
+                "translate:Translate*",
+                "trustedadvisor:Describe*",
+                "trustedadvisor:List*",
+                "waf:Get*",
+                "waf:List*",
+                "regional:Get*",
+                "regional:List*",
+                "wellarchitected:Get*",
+                "wellarchitected:List*",
+                "workdocs:Check*",
+                "workdocs:Download*",
+                "workdocs:Get*",
+                "worklink:Describe*",
+                "worklink:List*",
+                "workmail:Describe*",
+                "workmail:Get*",
+                "workmail:List*",
+                "workmail:Search*",
+                "workmailmessageflow:Get*",
+                "workspaces:Describe*",
+                "xray:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "aws-portal:*",
+                "cur:*",
+                "ce:*",
+                "pricing:*",
+                "purchase-orders:*"
+              ],
+              "Effect": "Deny",
+              "Resource": "*",
+              "Sid": "DenyBilling"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Get Access to all except billing",
+        "ManagedPolicyName": "ReadAllExceptBillingPolicy2",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/ReadAllExceptBillingPolicy2/Resource"
+      }
+    },
+    "FullDevOpsTeamResourcesPolicy55EFE753": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "*",
+              "Condition": {
+                "ForAllValues:StringEquals": {
+                  "aws:ResourceTag/SupportTeam": "DevOps"
+                }
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "AllowDevOps"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Access to resources used by DevOps team",
+        "ManagedPolicyName": "FullDevOpsTeamResourcesPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/FullDevOpsTeamResourcesPolicy/Resource"
+      }
+    },
+    "FullNetworkTeamResourcesPolicy2ECF45CC": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "*",
+              "Condition": {
+                "ForAllValues:StringEquals": {
+                  "aws:ResourceTag/SupportTeam": "Network"
+                }
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "AllowAllActionsForNetworkResources"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Access to all actions for network team's resources",
+        "ManagedPolicyName": "FullNetworkTeamResourcesPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/FullNetworkTeamResourcesPolicy/Resource"
+      }
+    },
+    "FullNetworkActionsPolicy6D5C81E0": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ec2:*Network*",
+                "ec2:*Address*",
+                "ec2:*Dhcp*",
+                "ec2:*Vpc*",
+                "ec2:*Vpn*",
+                "ec2:*Route*",
+                "ec2:*SecurityGroup*",
+                "ec2:*Subnet*",
+                "ec2:*Gateway*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "AllowAllNetworkActions"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Access to all network actions on all resources",
+        "ManagedPolicyName": "FullNetworkActionsPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/FullNetworkActionsPolicy/Resource"
+      }
+    },
+    "ReadNetworkActionsPolicy0C097299": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "ec2:Describe*Network*",
+                "ec2:Describe*Address*",
+                "ec2:Describe*Dhcp*",
+                "ec2:Describe*Vpc*",
+                "ec2:Describe*Vpn*",
+                "ec2:Describe*Route*",
+                "ec2:Describe*SecurityGroup*",
+                "ec2:Describe*Subnet*",
+                "ec2:Describe*Gateway*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "AllowAllReadNetworkActions"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Read access to all network resources",
+        "ManagedPolicyName": "ReadNetworkActionsPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/ReadNetworkActionsPolicy/Resource"
+      }
+    },
+    "ReadAccountPolicy484B6094": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "account:Describe*",
+                "account:List*",
+                "account:Get*"
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "ReadAccount"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Read access to all account actions",
+        "ManagedPolicyName": "ReadAccountPolicy",
+        "Path": "/"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/ReadAccountPolicy/Resource"
+      }
+    },
+    "AccessAdministrator066022E6": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "AccessAdministratordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "FullIAMPolicy9985998"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "AccessAdministrator"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/AccessAdministrator/Resource"
+      }
+    },
+    "AccessAuditorEED75091": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "AccessAuditordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "ReadIAMPolicy8C590EB0"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "AccessAuditor"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/AccessAuditor/Resource"
+      }
+    },
+    "BillingAuditor1BD72412": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "BillingAuditordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "ReadBillingPolicy6DA8D1C0"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "BillingAuditor"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/BillingAuditor/Resource"
+      }
+    },
+    "BreakGlassEDD26B15": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Break-Glassdescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "FullExceptBilling3CBBB8C1"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "Break-Glass"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/Break-Glass/Resource"
+      }
+    },
+    "CloudAdministrator8977BDC1": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "CloudAdministratordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "FullExceptBilling3CBBB8C1"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "PermissionsBoundary": {
+          "Ref": "FullExceptBilling3CBBB8C1"
+        },
+        "RoleName": "CloudAdministrator"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/CloudAdministrator/Resource"
+      }
+    },
+    "LOBxDevOpsEngineerABC25B9A": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "LOBx-DevOpsEngineerdescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "FullDevOpsTeamResourcesPolicy55EFE753"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "LOBx-DevOpsEngineer"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/LOBx-DevOpsEngineer/Resource"
+      }
+    },
+    "NetworkAdministratorB3EBFABD": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "NetworkAdministratordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "FullNetworkActionsPolicy6D5C81E0"
+          },
+          {
+            "Ref": "FullNetworkTeamResourcesPolicy2ECF45CC"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "NetworkAdministrator"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/NetworkAdministrator/Resource"
+      }
+    },
+    "NetworkAuditorFD036557": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "NetworkAuditordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "ReadNetworkActionsPolicy0C097299"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "NetworkAuditor"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/NetworkAuditor/Resource"
+      }
+    },
+    "SecurityAdministratorB6EA10CB": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "SecurityAdministratordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "FullExceptBilling3CBBB8C1"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "PermissionsBoundary": {
+          "Ref": "FullExceptBilling3CBBB8C1"
+        },
+        "RoleName": "SecurityAdministrator"
+      },
+      "Metadata": {
+        "aws:cdk:path": "identity-solution/SecurityAdministrator/Resource"
+      }
+    },
+    "SecurityAuditorDB0F2A60": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "iam.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "SecurityAuditordescription",
+        "ManagedPolicyArns": [
+          {
+            "Ref": "ReadAllExceptBillingPolicy13425D9E9"
+          },
+          {
+            "Ref": "ReadAllExceptBillingPolicy2DA0351EB"
+          }
+        ],
+        "MaxSessionDuration": 43200,
+        "RoleName": "SecurityAuditor"
+      }
+    }
+  }
+}

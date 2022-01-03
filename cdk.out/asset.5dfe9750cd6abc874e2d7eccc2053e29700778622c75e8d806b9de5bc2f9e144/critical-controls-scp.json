@@ -1,0 +1,61 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Deny",
+			"Action": [
+				"organizations:LeaveOrganization",
+				"aws-portal:ModifyAccount",
+                "aws-portal:ModifyBilling",
+                "aws-portal:ModifyPaymentMethods",
+				"access-analyzer:DeleteAnalyzer",
+				"guardduty:DeleteDetector",
+				"guardduty:DisassociateFromMasterAccount",
+				"guardduty:UpdateDetector",
+				"guardduty:CreateFilter",
+				"guardduty:CreateIPSet",
+				"ec2:DeleteFlowLogs",
+				"logs:DeleteLogGroup",
+				"logs:DeleteLogStream",
+				"s3:PutAccountPublicAccessBlock"
+			],
+			"Resource": "*"
+		},
+		{
+			"Action": "*",
+			"Resource": "*",
+			"Effect": "Deny",
+			"Condition": {
+				"StringLike": {
+					"aws:PrincipalArn": [
+						"arn:aws:iam::*:root"
+					]
+				}
+			}
+		},
+		{
+			"Action": [
+				"s3:PutObject"
+			],
+			"Resource": "*",
+			"Effect": "Deny",
+			"Condition": {
+				"StringNotEquals": {
+					"s3:x-amz-server-side-encryption": "AES256"
+				}
+			}
+		},
+		{
+			"Action": [
+				"s3:PutObject"
+			],
+			"Resource": "*",
+			"Effect": "Deny",
+			"Condition": {
+				"Bool": {
+					"s3:x-amz-server-side-encryption": false
+				}
+			}
+		}
+	]
+}

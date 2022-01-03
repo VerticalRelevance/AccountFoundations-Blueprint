@@ -1,0 +1,504 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 3 Tier VPC - Public, Private, Data Subnets
+Parameters:
+  VPCCIDR:
+    Type: String
+    Default: 10.100.0.0/16
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+  AvailabilityZone1:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-2a
+  AvailabilityZone2:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: us-east-2b
+  Public1SubnetName:
+    Type: String
+    Default: Public1
+  Public2SubnetName:
+    Type: String
+    Default: Public2
+  Private1SubnetName:
+    Type: String
+    Default: Private1
+  Private2SubnetName:
+    Type: String
+    Default: Private2
+  Data1SubnetName:
+    Type: String
+    Default: Data1
+  Data2SubnetName:
+    Type: String
+    Default: Data2
+  Public1CIDR:
+    Type: String
+    Default: 10.100.0.0/22
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+  Public2CIDR:
+    Type: String
+    Default: 10.100.16.0/22
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+  Private1CIDR:
+    Type: String
+    Default: 10.100.32.0/22
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+  Private2CIDR:
+    Type: String
+    Default: 10.100.48.0/22
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+  Data1CIDR:
+    Type: String
+    Default: 10.100.64.0/22
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+  Data2CIDR:
+    Type: String
+    Default: 10.100.80.0/22
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        Ref: VPCCIDR
+      EnableDnsSupport: 'true'
+      Tags:
+      - Key: Name
+        Value:
+          Ref: AWS::StackName
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: AvailabilityZone1
+      VpcId:
+        Ref: VPC
+      CidrBlock:
+        Ref: Public1CIDR
+      Tags:
+      - Key: VPC
+        Value:
+          Ref: AWS::StackName
+      - Key: Network
+        Value: Public
+      - Key: Name
+        Value:
+          Fn::Join:
+          - " "
+          - - Ref: Public1SubnetName
+            - Ref: AvailabilityZone1
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: AvailabilityZone2
+      VpcId:
+        Ref: VPC
+      CidrBlock:
+        Ref: Public2CIDR
+      Tags:
+      - Key: VPC
+        Value:
+          Ref: AWS::StackName
+      - Key: Network
+        Value: Public
+      - Key: Name
+        Value:
+          Fn::Join:
+          - " "
+          - - Ref: Public2SubnetName
+            - Ref: AvailabilityZone2
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: AvailabilityZone1
+      VpcId:
+        Ref: VPC
+      CidrBlock:
+        Ref: Private1CIDR
+      Tags:
+      - Key: Application
+        Value:
+          Ref: AWS::StackName
+      - Key: Network
+        Value: Private
+      - Key: Name
+        Value:
+          Fn::Join:
+          - " "
+          - - Ref: Private1SubnetName
+            - Ref: AvailabilityZone1
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: AvailabilityZone2
+      VpcId:
+        Ref: VPC
+      CidrBlock:
+        Ref: Private2CIDR
+      Tags:
+      - Key: Application
+        Value:
+          Ref: AWS::StackName
+      - Key: Network
+        Value: Private
+      - Key: Name
+        Value:
+          Fn::Join:
+          - " "
+          - - Ref: Private2SubnetName
+            - Ref: AvailabilityZone2
+  DataSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: AvailabilityZone1
+      VpcId:
+        Ref: VPC
+      CidrBlock:
+        Ref: Data1CIDR
+      Tags:
+      - Key: Application
+        Value:
+          Ref: AWS::StackName
+      - Key: Network
+        Value: Private
+      - Key: Name
+        Value:
+          Fn::Join:
+          - " "
+          - - Ref: Data1SubnetName
+            - Ref: AvailabilityZone1
+  DataSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: AvailabilityZone2
+      VpcId:
+        Ref: VPC
+      CidrBlock:
+        Ref: Data2CIDR
+      Tags:
+      - Key: Application
+        Value:
+          Ref: AWS::StackName
+      - Key: Network
+        Value: Private
+      - Key: Name
+        Value:
+          Fn::Join:
+          - " "
+          - - Ref: Data2SubnetName
+            - Ref: AvailabilityZone2
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Application
+        Value:
+          Ref: AWS::StackName
+      - Key: Network
+        Value: Public
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VPC
+      InternetGatewayId:
+        Ref: InternetGateway
+  NATGateway:
+    DependsOn: AttachGateway
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::GetAtt:
+        - NATGatewayEIP
+        - AllocationId
+      SubnetId:
+        Ref: PublicSubnet1
+  NATGatewayEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+  S3Endpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal: "*"
+          Action:
+          - s3:*
+          Resource:
+          - arn:aws:s3:::*
+      RouteTableIds:
+      - Ref: PrivateRouteTable
+      - Ref: DataRouteTable
+      ServiceName:
+        Fn::Join:
+        - ''
+        - - com.amazonaws.
+          - Ref: AWS::Region
+          - ".s3"
+      VpcId:
+        Ref: VPC
+  VPNGateway:
+    Type: AWS::EC2::VPNGateway
+    Properties:
+      Type: ipsec.1
+      Tags:
+      - Key: Name
+        Value: PrivateGateway
+  AttachVpnGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VPC
+      VpnGatewayId:
+        Ref: VPNGateway
+  VPNGatewayRoutePropPrivate:
+    DependsOn: AttachVpnGateway
+    Type: AWS::EC2::VPNGatewayRoutePropagation
+    Properties:
+      RouteTableIds:
+      - Ref: PrivateRouteTable
+      VpnGatewayId:
+        Ref: VPNGateway
+  VPNGatewayRoutePropPublic:
+    DependsOn: AttachVpnGateway
+    Type: AWS::EC2::VPNGatewayRoutePropagation
+    Properties:
+      RouteTableIds:
+      - Ref: PublicRouteTable
+      VpnGatewayId:
+        Ref: VPNGateway
+  VPNGatewayRoutePropData:
+    DependsOn: AttachVpnGateway
+    Type: AWS::EC2::VPNGatewayRoutePropagation
+    Properties:
+      RouteTableIds:
+      - Ref: DataRouteTable
+      VpnGatewayId:
+        Ref: VPNGateway
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VPC
+      Tags:
+      - Key: Name
+        Value: PublicRouteTable
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId:
+        Ref: PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: InternetGateway
+  PublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: PublicSubnet1
+      RouteTableId:
+        Ref: PublicRouteTable
+  PublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: PublicSubnet2
+      RouteTableId:
+        Ref: PublicRouteTable
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VPC
+      Tags:
+      - Key: Name
+        Value: PrivateRouteTable
+  PrivateRoute1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId:
+        Ref: NATGateway
+  PrivateSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: PrivateSubnet1
+      RouteTableId:
+        Ref: PrivateRouteTable
+  PrivateSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: PrivateSubnet2
+      RouteTableId:
+        Ref: PrivateRouteTable
+  DataRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VPC
+      Tags:
+      - Key: Name
+        Value: DataRouteTable
+  DataSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: DataSubnet1
+      RouteTableId:
+        Ref: DataRouteTable
+  DataSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: DataSubnet2
+      RouteTableId:
+        Ref: DataRouteTable
+  DataNacl:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      Tags:
+      - Key: Name
+        Value: DataNacl
+      VpcId:
+        Ref: VPC
+  DataNaclIngressEntry1:
+    DependsOn: DataNacl
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock:
+        Ref: Public1CIDR
+      Egress: 'false'
+      NetworkAclId:
+        Ref: DataNacl
+      Protocol: "-1"
+      RuleAction: deny
+      RuleNumber: '100'
+  DataNaclIngressEntry2:
+    DependsOn: DataNacl
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock:
+        Ref: Public2CIDR
+      Egress: 'false'
+      NetworkAclId:
+        Ref: DataNacl
+      Protocol: "-1"
+      RuleAction: deny
+      RuleNumber: '200'
+  DataNaclIngressEntry3:
+    DependsOn: DataNacl
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock: 0.0.0.0/0
+      Egress: 'false'
+      NetworkAclId:
+        Ref: DataNacl
+      Protocol: "-1"
+      RuleAction: allow
+      RuleNumber: '300'
+  DataNaclEgressEntry1:
+    DependsOn: DataNacl
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock:
+        Ref: Public1CIDR
+      Egress: 'true'
+      NetworkAclId:
+        Ref: DataNacl
+      Protocol: "-1"
+      RuleAction: deny
+      RuleNumber: '100'
+  DataNaclEgressEntry2:
+    DependsOn: DataNacl
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock:
+        Ref: Public2CIDR
+      Egress: 'true'
+      NetworkAclId:
+        Ref: DataNacl
+      Protocol: "-1"
+      RuleAction: deny
+      RuleNumber: '200'
+  DataNaclEgressEntry3:
+    DependsOn: DataNacl
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      CidrBlock: 0.0.0.0/0
+      Egress: 'true'
+      NetworkAclId:
+        Ref: DataNacl
+      Protocol: "-1"
+      RuleAction: allow
+      RuleNumber: '300'
+  DataNaclSubnetAssociation1:
+    DependsOn: DataNacl
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId:
+        Ref: DataSubnet1
+      NetworkAclId:
+        Ref: DataNacl
+  DataNaclSubnetAssociation2:
+    DependsOn: DataNacl
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId:
+        Ref: DataSubnet2
+      NetworkAclId:
+        Ref: DataNacl
+Outputs:
+  Vpc:
+    Value:
+      Ref: VPC
+  VpcCidr:
+    Value:
+      Ref: VPCCIDR
+  PublicSubnet1:
+    Value:
+      Ref: PublicSubnet1
+  PublicCidr1:
+    Value:
+      Ref: Public1CIDR
+  PublicSubnet2:
+    Value:
+      Ref: PublicSubnet2
+  PublicCidr2:
+    Value:
+      Ref: Public2CIDR
+  PrivateSubnet1:
+    Value:
+      Ref: PrivateSubnet1
+  PrivateCidr1:
+    Value:
+      Ref: Private1CIDR
+  PrivateSubnet2:
+    Value:
+      Ref: PrivateSubnet2
+  PrivateCidr2:
+    Value:
+      Ref: Private2CIDR
+  DataSubnet1:
+    Value:
+      Ref: DataSubnet1
+  DataCidr1:
+    Value:
+      Ref: Data1CIDR
+  DataSubnet2:
+    Value:
+      Ref: DataSubnet2
+  DataCidr2:
+    Value:
+      Ref: Data2CIDR

@@ -1,0 +1,68 @@
+---
+region: us-east-2  # Control Tower Home Region
+version: 2021-03-15
+
+resources:
+  # Create Critical Controls OU SCP.
+  - name: critical-controls-ou-scp
+    resource_file: s3://vr-account-foundation-bucket/scp-policies/critical-controls-scp.json
+    deploy_method: scp
+    deployment_targets:
+      organizational_units:
+        - critical-controls-ou
+ 
+  # Create Business Unit OU SCP.
+  - name: business-unit-ou-scp
+    resource_file: s3://vr-account-foundation-bucket/scp-policies/business-unit-scp.json
+    deploy_method: scp
+    deployment_targets:
+      organizational_units:
+        - business-unit-ou
+
+  # Create Dev Workload OU SCP.
+  - name: dev-workload-ou-scp
+    resource_file: s3://vr-account-foundation-bucket/scp-policies/dev-workload.json
+    deploy_method: scp
+    deployment_targets:
+      organizational_units:
+        - business-unit-ou
+
+# Deploy baseline security controls to each account in the organization.
+  - name: baseline-security-controls-stackset
+    resource_file: s3://vr-account-foundation-bucket/cfn-templates/baseline_security_controls.template
+    deploy_method: stack_set
+    deployment_targets:
+      organizational_units:
+        - critical-controls-ou
+    regions:
+      - us-east-2
+
+# Deploy a baseline, three-tier VPC to each workload account.
+  - name: baseline-vpc-stackset
+    resource_file: s3://vr-account-foundation-bucket/cfn-templates/baseline_vpc.template
+    deploy_method: stack_set
+    deployment_targets:
+      organizational_units:
+        - business-unit-1-ou
+    regions:
+      - us-east-2
+
+# Deploy baseline IAM users and roles to each workload account.
+  - name: baseline-iam-stackset
+    resource_file: 
+    deploy_method: stack_set
+    deployment_targets:
+      organizational_units:
+        - business-unit-1-ou
+    regions:
+      - us-east-2
+
+# Deploy a lambda to remove default networking components (security groups, etc) from each workload account.
+  - name: remove-default-networking-components-stackset
+    resource_file: s3://vr-account-foundation-bucket/cfn-templates/baseline_default_networking_cleanup.template
+    deploy_method: stack_set
+    deployment_targets:
+      organizational_units:
+        - business-unit-1-ou
+    regions:
+      - us-east-2
