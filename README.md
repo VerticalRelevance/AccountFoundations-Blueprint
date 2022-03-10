@@ -1,4 +1,4 @@
-# Welcome to your CDK Python project!
+# Account Foundations CDK Python
 
 This is a project for Python development with CDK.
 
